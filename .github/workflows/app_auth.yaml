@@ -2,7 +2,8 @@ name: App Auth Workflow
 on:
   workflow_dispatch:
   push:
-    - master
+    branches:
+      - master
 jobs:
   demo:
     runs-on: ubuntu-latest
