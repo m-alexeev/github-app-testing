@@ -10,9 +10,9 @@ jobs:
     environment: TESTING
     runs-on: ubuntu-latest
 
-    # permissions:
-    #   contents: write
-    #   id-token: write
+    permissions:
+      contents: write
+      id-token: write
 
     steps:
       - uses: actions/checkout@v4
