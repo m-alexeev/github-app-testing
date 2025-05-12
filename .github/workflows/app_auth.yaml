@@ -8,6 +8,8 @@ jobs:
   demo:
     runs-on: ubuntu-latest
     steps:
+      - name: Debug APP_ID variable
+        run: echo "APP_ID is ${{ vars.APP_ID }}"
       - uses: actions/create-github-app-token@v2
         id: app-token
         with:
