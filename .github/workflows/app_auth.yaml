@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: Debug APP_ID variable
         run: echo "APP_ID is ${{ vars.APP_ID }}"
+      - name: Debug private key presence
+        run: echo "Private key is set"
+        if: ${{ secrets.PRIVATE_KEY != '' }}
       - uses: actions/create-github-app-token@v2
         id: app-token
         with:
