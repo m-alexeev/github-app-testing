@@ -6,6 +6,7 @@ on:
       - master
 jobs:
   demo:
+    environment: TEST
     runs-on: ubuntu-latest
     steps:
       - name: Debug APP_ID variable
