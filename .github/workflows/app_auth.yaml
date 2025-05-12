@@ -36,4 +36,4 @@ jobs:
           git checkout -b test-branch
           # git add . 
           # git commit -m "New Branch"
-          git push
+          git push --set-upstream origin test-branch
