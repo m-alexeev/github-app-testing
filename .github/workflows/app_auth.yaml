@@ -4,30 +4,43 @@ on:
   push:
     branches:
       - master
+
 jobs:
   demo:
     environment: TESTING
     runs-on: ubuntu-latest
+
+    # permissions:
+    #   contents: write
+    #   id-token: write
+
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/create-github-app-token@v2
         id: app-token
         with:
-          # required
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - name: Get GitHub App User ID
         id: get-user-id
         run: echo "user-id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
-      - run: |
+
+      - name: Set up Git identity
+        run: |
           git config --global user.name '${{ steps.app-token.outputs.app-slug }}[bot]'
           git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
-      # git commands like commit work using the bot user
-      - run: |
-          touch .test
+
+      - name: Change remote to use App token
+        run: |
+          git remote set-url origin https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}
+
+      - name: Commit and push
+        run: |
+          git checkout -b new-branch
           git add .
-          git commit -m "Auto-generated changes"
-          git push
+          git commit -m "Auto-generated changes" || echo "Nothing to commit"
+          git push origin HEAD
