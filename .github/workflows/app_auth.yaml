@@ -11,12 +11,18 @@ jobs:
     steps:
       - name: Debug APP_ID variable
         run: echo "APP_ID is ${{ vars.APP_ID }}"
+
+      - name: Debug private key presence
+        env:
+          PRIVATE_KEY: ${{secrets.PRIVATE_KEY}}
+        if: ${{ PRIVATE_KEY }}
+        run: echo "$PRIVATE_KEY"
+
       - uses: actions/create-github-app-token@v2
         id: app-token
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
         with:
-          # required
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
       - name: Get GitHub App User ID
