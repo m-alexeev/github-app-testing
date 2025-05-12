@@ -15,7 +15,6 @@ jobs:
       - name: Debug private key presence
         env:
           PRIVATE_KEY: ${{secrets.PRIVATE_KEY}}
-        if: ${{ PRIVATE_KEY }}
         run: echo "$PRIVATE_KEY"
 
       - uses: actions/create-github-app-token@v2
