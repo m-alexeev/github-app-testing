@@ -38,6 +38,14 @@ jobs:
         run: |
           git remote set-url origin https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}
 
+      - name: Who am I pushing as?
+        run: |
+          echo "🔍 Remote URL:"
+          git config --get remote.origin.url
+
+          echo "🔍 Authenticated user (via App token):"
+          curl -H "Authorization: Bearer ${{ steps.app-token.outputs.token }}" https://api.github.com/user
+
       - name: Commit and push
         run: |
           git checkout -b new-branch-3
