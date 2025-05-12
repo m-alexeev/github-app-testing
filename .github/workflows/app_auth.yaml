@@ -23,7 +23,7 @@ jobs:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
         with:
           app-id: ${{ vars.APP_ID }}
-          private-key: ${{ secrets.PRIVATE_KEY }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
       - name: Get GitHub App User ID
         id: get-user-id
         run: echo "user-id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
