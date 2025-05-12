@@ -40,7 +40,7 @@ jobs:
 
       - name: Commit and push
         run: |
-          git checkout -b new-branch
+          git checkout -b new-branch-2
           git add .
           git commit -m "Auto-generated changes" || echo "Nothing to commit"
           git push origin HEAD
