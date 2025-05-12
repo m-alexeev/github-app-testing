@@ -9,8 +9,8 @@ jobs:
     environment: TESTING
     runs-on: ubuntu-latest
     steps:
-      # - name: Checkout
-      #   uses: actions/checkout@v3
+      - name: Checkout
+      - uses: actions/checkout@v4
 
       - uses: actions/create-github-app-token@v2
         id: app-token
