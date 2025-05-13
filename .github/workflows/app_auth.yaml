@@ -46,6 +46,7 @@ jobs:
 
       - name: Commit and push
         run: |
+          git config --get remote.origin.url
           git checkout -b new-branch-4
           git add .
           git commit -m "Auto-generated changes" || echo "Nothing to commit"
