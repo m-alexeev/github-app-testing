@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
+        name: Checkout
+
       - uses: actions/create-github-app-token@v2
         id: app-token
         with:
@@ -30,6 +33,7 @@ jobs:
 
       - name: Change remote to use App token
         run: |
+          git remote remove origin
           git remote add origin https://${{steps.app-token.outputs.token}}@github.com/m-alexeev/github-app-testing
 
       - name: Who am I pushing as?
