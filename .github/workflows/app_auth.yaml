@@ -45,8 +45,6 @@ jobs:
           git config --get remote.origin.url
 
       - name: Commit and push
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           git config --get remote.origin.url
           git checkout -b new-branch-4
