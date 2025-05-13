@@ -37,7 +37,7 @@ jobs:
       - name: Change remote to use App token
         run: |
           git remote remove origin
-          git remote add origin https://${{steps.app-token.outputs.token}}@github.com/m-alexeev/github-app-testing
+          git remote add origin https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/m-alexeev/github-app-testing.git
 
       - name: Who am I pushing as?
         run: |
@@ -45,6 +45,8 @@ jobs:
           git config --get remote.origin.url
 
       - name: Commit and push
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           git config --get remote.origin.url
           git checkout -b new-branch-4
