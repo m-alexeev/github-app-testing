@@ -1,0 +1,26 @@
+name: Trigger Workflow
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+jobs:
+  dispatch:
+    environment: TESTING
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch Workflow
+        uses: actions/github-script@v7
+        with:
+          github_token: ${{ secrets.GITHUB_APP_TOKEN }}
+          script: |
+            const payload = {
+              commit_sha: ${{github.ref}}
+            }
+            const result = await github.rest.repos.createDispatchEvent({
+              owner: "m-alexeev",
+              repo: "dispatch-testing",
+              event_type: "deployment-event",
+              client_payload: payload
+            })
+            console.log(`Status: ${result.status}`)
