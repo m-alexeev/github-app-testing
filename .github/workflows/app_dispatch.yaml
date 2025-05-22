@@ -9,17 +9,12 @@ jobs:
     environment: TESTING
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        name: Checkout
-        with:
-          persist-credentials: false
-          fetch-depth: 0
-
       - uses: actions/create-github-app-token@v2
         id: app-token
         with:
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
 
       - name: Dispatch Workflow
         uses: actions/github-script@v7
