@@ -1,9 +1,6 @@
 name: App Auth Workflow
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master
 
 jobs:
   demo:
